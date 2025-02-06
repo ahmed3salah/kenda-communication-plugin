@@ -27,4 +27,35 @@ Route::get('api/v1/kenda-communication', function (Request $request) {
         // }
     }
 
+    $functionName = $request->get('function');
+    $parameters = $request->get('parameters');
+
+    if(!array_key_exists($functionName, config('kenda-communication-plugin.functions'))) {
+        return response()->json([
+            'message' => 'Function not found',
+        ], 404);
+    }
+
+    $functionClass = config('kenda-communication-plugin.functions')[$functionName];
+
+    try {
+        $functionClass = new ReflectionClass($functionClass);
+    } catch (ReflectionException $e) {
+        return response()->json([
+            'message' => 'Function not found',
+        ], 404);
+    }
+
+    if(!$functionClass->isSubclassOf('Kenda\KendaCommunicationPlugin\Functions\KendaFunction')) {
+        return response()->json([
+            'message' => 'Function not found',
+        ], 404);
+    }
+
+    $result = (new $functionClass($parameters, $userModel))->execute();
+
+    return response()->json([
+        'message' => 'Function executed successfully',
+        'result' => $result,
+    ]);
 });
