@@ -2,9 +2,9 @@
 
 namespace Kenda\KendaCommunicationPlugin;
 
+use Kenda\KendaCommunicationPlugin\Commands\KendaCommunicationPluginCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Kenda\KendaCommunicationPlugin\Commands\KendaCommunicationPluginCommand;
 
 class KendaCommunicationPluginServiceProvider extends PackageServiceProvider
 {

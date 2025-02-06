@@ -3,8 +3,8 @@
 namespace Kenda\KendaCommunicationPlugin\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Kenda\KendaCommunicationPlugin\KendaCommunicationPluginServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
