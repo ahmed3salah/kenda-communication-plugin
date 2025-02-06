@@ -12,7 +12,7 @@ Route::get('api/v1/kenda-communication', function (Request $request) {
 
     // Try to get the user of the request
 
-    if(config('kenda-communication-plugin.enable_user_resolving')) {
+    if (config('kenda-communication-plugin.enable_user_resolving')) {
         $userModel = config('kenda-communication-plugin.user_model');
         $userPhoneNumberColumn = config('kenda-communication-plugin.user_phone_number_column');
 
@@ -26,10 +26,5 @@ Route::get('api/v1/kenda-communication', function (Request $request) {
         //     ], 404);
         // }
     }
-
-
-
-
-
 
 });
