@@ -2,11 +2,11 @@
 
 namespace Kenda\KendaCommunicationPlugin\Functions;
 
-
 abstract class KendaFunction
 {
     protected array $parameters;
-    protected $user ;
+
+    protected $user;
 
     public function __construct($parameters, $user = null)
     {
@@ -14,5 +14,5 @@ abstract class KendaFunction
         $this->parameters = $parameters;
     }
 
-    public abstract function execute();
+    abstract public function execute();
 }
