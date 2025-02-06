@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Kenda\KendaCommunicationPlugin\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class KendaCommunicationPluginCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'kenda-communication-plugin';
 
     public $description = 'My command';
 

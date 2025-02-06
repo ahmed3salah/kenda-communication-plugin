@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "ahmedsalah/kenda-communication-plugin",
+    "description": "kenda-communication-plugin",
     "keywords": [
-        ":vendor_name",
+        "kenda",
         "laravel",
-        ":package_slug"
+        "kenda-communication-plugin"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/ahmedsalah/kenda-communication-plugin",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Ahmed Salah",
+            "email": "ahmed3salah311@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "Kenda\\KendaCommunicationPlugin\\": "src/",
+            "Kenda\\KendaCommunicationPlugin\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "Kenda\\KendaCommunicationPlugin\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Kenda\\KendaCommunicationPlugin\\KendaCommunicationPluginServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "KendaCommunicationPlugin": "Kenda\\KendaCommunicationPlugin\\Facades\\KendaCommunicationPlugin"
             }
         }
     },

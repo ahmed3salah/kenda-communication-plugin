@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Kenda\KendaCommunicationPlugin;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Kenda\KendaCommunicationPlugin\Commands\KendaCommunicationPluginCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class KendaCommunicationPluginServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('kenda-communication-plugin')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_kenda_communication_plugin_table')
+            ->hasCommand(KendaCommunicationPluginCommand::class);
     }
 }
