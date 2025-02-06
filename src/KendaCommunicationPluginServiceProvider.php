@@ -21,7 +21,6 @@ class KendaCommunicationPluginServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_kenda_communication_plugin_table')
-            ->hasCommand(KendaCommunicationPluginCommand::class)
-            ;
+            ->hasCommand(KendaCommunicationPluginCommand::class);
     }
 }
