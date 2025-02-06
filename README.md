@@ -27,7 +27,6 @@ You can publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --tag="kenda-communication-plugin-migrations"
-php artisan migrate
 ```
 
 You can publish the config file with:
@@ -40,6 +39,23 @@ This is the contents of the published config file:
 
 ```php
 return [
+
+    /* -------------------------------------------------------------------------- */
+    /*                                User Resolving */
+    /* -------------------------------------------------------------------------- */
+    'enable_user_resolving' => true,
+
+    'user_model' => 'App\Models\User',
+    'user_phone_number_column' => 'phone_number',
+
+    /* -------------------------------------------------------------------------- */
+    /*                                Function calls */
+    /* -------------------------------------------------------------------------- */
+
+    'functions' => [
+        'example_function' => 'App\KendaCommunicationPlugin\Functions\ExampleFunction',
+    ],
+
 ];
 ```
 
