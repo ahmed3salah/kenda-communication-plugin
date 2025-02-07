@@ -19,12 +19,10 @@ class KendaCommunicationPluginServiceProvider extends PackageServiceProvider
             ->name('kenda-communication-plugin')
             ->hasRoute('api')
             ->hasConfigFile()
-            ->hasCommand(GenerateKendaFunctionCommand::class)
+            ->hasCommand(GenerateKendaFunctionCommand::class);
 
         // ->hasViews()
         // ->hasMigration('create_kenda_communication_plugin_table')
         // ->hasCommand(KendaCommunicationPluginCommand::class)
-
-        ;
     }
 }

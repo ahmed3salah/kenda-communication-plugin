@@ -16,5 +16,5 @@ abstract class KendaFunction
         $this->parameters = $parameters;
     }
 
-    abstract public function execute() : Response;
+    abstract public function execute(): Response;
 }
