@@ -12,7 +12,7 @@ class GenerateKendaFunctionCommand extends Command
 
     public function handle(): int
     {
-        $stub = file_get_contents(__DIR__ . '/../stubs/function.stub');
+        $stub = file_get_contents(__DIR__.'/../stubs/function.stub');
 
         $functionName = $this->ask('What is the name of the function?');
 
@@ -21,14 +21,14 @@ class GenerateKendaFunctionCommand extends Command
         $stub = str_replace('{{NAMESPACE}}', 'App\\Functions', $stub);
 
         // make sure the Functions directory exists
-        if (!is_dir(app_path('Functions'))) {
+        if (! is_dir(app_path('Functions'))) {
             mkdir(app_path('Functions'));
         }
 
         // save the file in the app/Functions directory
-        file_put_contents(app_path('Functions/' . $functionName . '.php'), $stub);
+        file_put_contents(app_path('Functions/'.$functionName.'.php'), $stub);
 
-        $this->info('Function created successfully in app/Functions/' . $functionName . '.php');
+        $this->info('Function created successfully in app/Functions/'.$functionName.'.php');
         $this->info('You can now add your logic to the function');
 
         return self::SUCCESS;
