@@ -2,7 +2,7 @@
 
 namespace Kenda\KendaCommunicationPlugin;
 
-use Kenda\KendaCommunicationPlugin\Commands\KendaCommunicationPluginCommand;
+use Kenda\KendaCommunicationPlugin\Commands\GenerateKendaFunctionCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -18,9 +18,13 @@ class KendaCommunicationPluginServiceProvider extends PackageServiceProvider
         $package
             ->name('kenda-communication-plugin')
             ->hasRoute('api')
-            ->hasConfigFile();
+            ->hasConfigFile()
+            ->hasCommand(GenerateKendaFunctionCommand::class)
+
         // ->hasViews()
         // ->hasMigration('create_kenda_communication_plugin_table')
         // ->hasCommand(KendaCommunicationPluginCommand::class)
+
+        ;
     }
 }
