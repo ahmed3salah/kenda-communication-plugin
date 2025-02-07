@@ -53,12 +53,6 @@ return [
 ];
 ```
 
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="kenda-communication-plugin-views"
-```
-
 ## Usage
 
 ```php
