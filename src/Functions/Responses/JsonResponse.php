@@ -6,13 +6,14 @@ class JsonResponse extends Response
 {
     private array $data {
         get {
-            return $this->data;
-        }
+        return $this->data;
     }
+    }
+
     private int $status {
         get {
-            return $this->status;
-        }
+        return $this->status;
+    }
     }
 
     public function __construct(array $data, int $status = 200)
@@ -20,5 +21,4 @@ class JsonResponse extends Response
         $this->data = $data;
         $this->status = $status;
     }
-
 }
