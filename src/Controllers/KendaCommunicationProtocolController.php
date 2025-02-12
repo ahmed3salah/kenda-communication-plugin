@@ -32,7 +32,6 @@ class KendaCommunicationProtocolController
         $functionName = $publicKey->decrypt(base64_decode($request->function));
         $parameters = json_decode($decryptedParameters, true);
 
-
         // Resolve the user
         $userModel = null;
         if (config('kenda-communication-plugin.enable_user_resolving')) {
