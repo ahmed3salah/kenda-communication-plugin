@@ -12,16 +12,30 @@ class KendaCommunicationProtocolController
         $request->validate([
             'senderPhoneNumber' => ['required', 'string'],
             'function' => ['required', 'string'],
-            'parameters' => ['nullable', 'array'],
+            'parameters' => ['nullable', 'string'],
         ]);
+
+        $publicKeyPath = config('kenda-communication-plugin.public_key_path');
+
+        $publicKey = PublicKey::fromFile(storage_path($publicKeyPath));
+
+        if (is_null($request->parameters)) {
+            $decryptedParameters = null;
+        } else {
+            $decryptedParameters = $publicKey->decrypt(base64_decode($request->parameters));
+        }
+
+        $senderPhoneNumber = $publicKey->decrypt(base64_decode($request->senderPhoneNumber));
+        $functionName = $publicKey->decrypt(base64_decode($request->function));
+        $parameters = json_decode($decryptedParameters, true);
+
 
         // Resolve the user
         $userModel = null;
         if (config('kenda-communication-plugin.enable_user_resolving')) {
             $userPhoneNumberColumn = config('kenda-communication-plugin.user_phone_number_column');
-            // user model class (App\Models\User)
             $userModelClass = config('kenda-communication-plugin.user_model');
-            $userModel = $userModelClass::where($userPhoneNumberColumn, $request->senderPhoneNumber)->first();
+            $userModel = $userModelClass::where($userPhoneNumberColumn, $senderPhoneNumber)->first();
         }
 
         if (is_null($userModel) && ! config('kenda-communication-plugin.enable_guest_user')) {
@@ -29,9 +43,6 @@ class KendaCommunicationProtocolController
                 'message' => 'User not found',
             ], 404);
         }
-
-        $functionName = $request->get('function');
-        $parameters = $request->get('parameters');
 
         if (! array_key_exists($functionName, config('kenda-communication-plugin.functions'))) {
             return response()->json([
@@ -55,7 +66,21 @@ class KendaCommunicationProtocolController
             ], 404);
         }
 
-        $result = $functionClass->newInstance($parameters, $userModel)->execute();
+        try {
+            $function = $functionClass->newInstance($parameters, $userModel);
+        } catch (ReflectionException $e) {
+            return response()->json([
+                'message' => 'Function not found',
+            ], 404);
+        }
+
+        try {
+            $result = $function->execute();
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while executing the function',
+            ], 500);
+        }
 
         dd($result);
 
