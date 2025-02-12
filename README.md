@@ -34,10 +34,10 @@ This is the contents of the published config file:
 return [
 
     /* -------------------------------------------------------------------------- */
-    /*                                Encryption Key                              */
+    /*                                Public Key                                  */
     /* -------------------------------------------------------------------------- */
 
-    'encryption_key' => env('KENDA_COMMUNICATION_PLUGIN_ENCRYPTION_KEY'),
+    'public_key_path' => env('KENDA_COMMUNICATION_PLUGIN_PUBLIC_KEY_PATH', 'public_key_server.kendaKey'),
 
     /* -------------------------------------------------------------------------- */
     /*                                User Resolving                              */
