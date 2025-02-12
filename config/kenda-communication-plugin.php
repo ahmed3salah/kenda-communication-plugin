@@ -3,13 +3,13 @@
 return [
 
     /* -------------------------------------------------------------------------- */
-    /*                                Public Key                                  */
+    /*                                Public Key */
     /* -------------------------------------------------------------------------- */
 
     'public_key_path' => env('KENDA_COMMUNICATION_PLUGIN_PUBLIC_KEY_PATH', 'public_key_server.kendaKey'),
 
     /* -------------------------------------------------------------------------- */
-    /*                                User Resolving                              */
+    /*                                User Resolving */
     /* -------------------------------------------------------------------------- */
 
     'enable_user_resolving' => env('KENDA_COMMUNICATION_PLUGIN_ENABLE_USER_RESOLVING', true),
@@ -19,7 +19,7 @@ return [
     'user_phone_number_column' => env('KENDA_COMMUNICATION_PLUGIN_USER_PHONE_NUMBER_COLUMN', 'phone_number'),
 
     /* -------------------------------------------------------------------------- */
-    /*                                Function calls                              */
+    /*                                Function calls */
     /* -------------------------------------------------------------------------- */
 
     'functions' => [
