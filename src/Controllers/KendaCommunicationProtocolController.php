@@ -26,7 +26,7 @@ class KendaCommunicationProtocolController
             $decryptedParameters = null;
         } else {
 
-            if (!$publicKey->canDecrypt($request->parameters)) {
+            if (! $publicKey->canDecrypt($request->parameters)) {
                 return response()->json([
                     'message' => 'Invalid parameters',
                 ], 400);
@@ -35,13 +35,13 @@ class KendaCommunicationProtocolController
             $decryptedParameters = $publicKey->decrypt(base64_decode($request->parameters));
         }
 
-        if (!$publicKey->canDecrypt($request->senderPhoneNumber)) {
+        if (! $publicKey->canDecrypt($request->senderPhoneNumber)) {
             return response()->json([
                 'message' => 'Invalid sender phone number',
             ], 400);
         }
 
-        if (!$publicKey->canDecrypt($request->function)) {
+        if (! $publicKey->canDecrypt($request->function)) {
             return response()->json([
                 'message' => 'Invalid function',
             ], 400);
