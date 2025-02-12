@@ -1,0 +1,21 @@
+<?php
+
+namespace {{NAMESPACE}};
+
+use Kenda\KendaCommunicationPlugin\Functions\KendaFunction;
+use Kenda\KendaCommunicationPlugin\Functions\Responses\Response;
+use Kenda\KendaCommunicationPlugin\Functions\Responses\WhatsAppMessageResponse;
+use Kenda\KendaCommunicationPlugin\Functions\Responses\JsonResponse;
+
+class {{ACTION_NAME}} extends KendaFunction
+{
+    public function execute() : Response
+    {
+        // Implement the function logic here
+
+        $whatsappMessageResponse = new WhatsAppMessageResponse('We are working on it');
+        $jsonResponse = new JsonResponse(['message' => 'We are working on it'], 201);
+
+        return $whatsappMessageResponse;
+    }
+}
