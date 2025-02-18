@@ -13,8 +13,7 @@ class {{ACTION_NAME}} extends KendaFunction
     {
         // Implement the function logic here
 
-        $whatsappMessageResponse = new WhatsAppMessageResponse('We are working on it');
-        $jsonResponse = new JsonResponse(['message' => 'We are working on it'], 201);
+        $whatsappMessageResponse = new WhatsAppMessageResponse('We are working on it', $this->requestFromWho)
 
         return $whatsappMessageResponse;
     }
