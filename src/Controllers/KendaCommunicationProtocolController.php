@@ -3,8 +3,11 @@
 namespace Kenda\KendaCommunicationPlugin\Controllers;
 
 use Illuminate\Http\Request;
+use Kenda\KendaCommunicationPlugin\Enums\RequestChannelsEnum;
 use ReflectionClass;
 use ReflectionException;
+use Spatie\Crypto\Rsa\Exceptions\CouldNotDecryptData;
+use Spatie\Crypto\Rsa\Exceptions\FileDoesNotExist;
 use Spatie\Crypto\Rsa\PublicKey;
 
 class KendaCommunicationProtocolController
@@ -20,35 +23,49 @@ class KendaCommunicationProtocolController
 
         $publicKeyPath = config('kenda-communication-plugin.public_key_path');
 
-        $publicKey = PublicKey::fromFile(storage_path($publicKeyPath));
+        if (!file_exists(storage_path($publicKeyPath))) {
+            return response()->json([
+                'message' => 'Public key not found',
+            ], 500);
+        }
+
+        try {
+            $publicKey = PublicKey::fromFile(storage_path($publicKeyPath));
+        } catch (FileDoesNotExist $e) {
+            return response()->json([
+                'message' => 'Public key not found',
+            ], 500);
+        }
 
         if (is_null($request->parameters)) {
             $decryptedParameters = null;
         } else {
 
-            if (! $publicKey->canDecrypt($request->parameters)) {
+            try {
+                $decryptedParameters = $publicKey->decrypt(base64_decode($request->parameters));
+            } catch (CouldNotDecryptData $e) {
                 return response()->json([
-                    'message' => 'Invalid parameters',
+                    'message' => 'Invalid parameters or could not decrypt parameters',
                 ], 400);
             }
-
-            $decryptedParameters = $publicKey->decrypt(base64_decode($request->parameters));
         }
 
-        if (! $publicKey->canDecrypt($request->senderPhoneNumber)) {
+        try {
+            $senderPhoneNumber = $publicKey->decrypt(base64_decode($request->senderPhoneNumber));
+        } catch (CouldNotDecryptData $e) {
             return response()->json([
-                'message' => 'Invalid sender phone number',
+                'message' => 'Invalid sender phone number or could not decrypt sender phone number',
             ], 400);
         }
 
-        if (! $publicKey->canDecrypt($request->function)) {
+        try {
+            $functionName = $publicKey->decrypt(base64_decode($request->function));
+        } catch (CouldNotDecryptData $e) {
             return response()->json([
-                'message' => 'Invalid function',
+                'message' => 'Invalid function or could not decrypt function',
             ], 400);
         }
 
-        $senderPhoneNumber = $publicKey->decrypt(base64_decode($request->senderPhoneNumber));
-        $functionName = $publicKey->decrypt(base64_decode($request->function));
         $parameters = json_decode($decryptedParameters, true);
 
         // Resolve the user
@@ -88,7 +105,10 @@ class KendaCommunicationProtocolController
         }
 
         try {
-            $function = $functionClass->newInstance($parameters, $userModel);
+            $requestChannel = RequestChannelsEnum::WHATSAPP;
+            $parameters = json_decode($parameters, true);
+
+            $function = $functionClass->newInstance($parameters, $requestChannel, $userModel, $senderPhoneNumber);
         } catch (ReflectionException $e) {
             return response()->json([
                 'message' => 'Function not found',
@@ -96,14 +116,15 @@ class KendaCommunicationProtocolController
         }
 
         try {
-            $result = $function->execute();
+            $response = $function->execute();
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'An error occurred while executing the function',
             ], 500);
         }
 
-        dd($result);
+        // Execute the response class
+        $result = $response->execute();
 
         return response()->json([
             'message' => 'Function executed successfully',

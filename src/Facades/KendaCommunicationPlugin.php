@@ -5,6 +5,7 @@ namespace Kenda\KendaCommunicationPlugin\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @method static void sendWhatsappMessage(string $targetPhone, string $message, ?string $fromPhone = null): JsonResponse
  * @see \Kenda\KendaCommunicationPlugin\KendaCommunicationPlugin
  */
 class KendaCommunicationPlugin extends Facade
