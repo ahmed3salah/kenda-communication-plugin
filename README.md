@@ -31,6 +31,10 @@ This will create a configuration file containing:
 
 ```php
 return [
+
+    'api_key' => env('KENDA_COMMUNICATION_PLUGIN_API_KEY', 'kn-...'),
+    'from_phone' => env('KENDA_COMMUNICATION_PLUGIN_FROM_PHONE', '254712345678'),
+    
     'public_key_path' => env('KENDA_COMMUNICATION_PLUGIN_PUBLIC_KEY_PATH', 'public_key_server.kendaKey'),
 
     'enable_user_resolving' => env('KENDA_COMMUNICATION_PLUGIN_ENABLE_USER_RESOLVING', true),
