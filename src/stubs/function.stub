@@ -3,9 +3,9 @@
 namespace {{NAMESPACE}};
 
 use Kenda\KendaCommunicationPlugin\Functions\KendaFunction;
-use Kenda\KendaCommunicationPlugin\Functions\Responses\Response;
-use Kenda\KendaCommunicationPlugin\Functions\Responses\WhatsAppMessageResponse;
-use Kenda\KendaCommunicationPlugin\Functions\Responses\JsonResponse;
+use Kenda\KendaCommunicationPlugin\Responses\Response;
+use Kenda\KendaCommunicationPlugin\Responses\WhatsAppMessageResponse;
+use Kenda\KendaCommunicationPlugin\Responses\JsonResponse;
 
 class {{ACTION_NAME}} extends KendaFunction
 {

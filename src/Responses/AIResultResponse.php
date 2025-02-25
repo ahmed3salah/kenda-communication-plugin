@@ -7,22 +7,23 @@ use Spatie\Crypto\Rsa\PublicKey;
 
 class AIResultResponse extends Response
 {
-    private string $response {
-        get {
-            return $this->response;
-        }
-    }
-
-    private int $statusCode {
-        get {
-            return $this->statusCode;
-        }
-    }
+    private string $response;
+    private int $statusCode;
 
     public function __construct(string $response, $statusCode = 200)
     {
         $this->response = $response;
         $this->statusCode = $statusCode;
+    }
+
+    public function getResponse(): string
+    {
+        return $this->response;
+    }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
     }
 
     public function execute(): \Illuminate\Http\JsonResponse
@@ -43,7 +44,7 @@ class AIResultResponse extends Response
             ], 500);
         }
 
-        $response = $this->response;
+        $response = $this->getResponse();
 
         $encryptedResponse = $publicKey->encrypt($response);
 
@@ -52,6 +53,6 @@ class AIResultResponse extends Response
             'message' => 'AI result sent successfully',
             'api_key' => config('kenda-communication-plugin.api_key'),
             'response' => base64_encode($encryptedResponse),
-        ], $this->statusCode);
+        ], $this->getStatusCode());
     }
 }
