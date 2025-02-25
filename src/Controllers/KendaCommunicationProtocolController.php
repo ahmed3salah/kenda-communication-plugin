@@ -23,7 +23,7 @@ class KendaCommunicationProtocolController
 
         $publicKeyPath = config('kenda-communication-plugin.public_key_path');
 
-        if (!file_exists(storage_path($publicKeyPath))) {
+        if (! file_exists(storage_path($publicKeyPath))) {
             return response()->json([
                 'message' => 'Public key not found',
             ], 500);

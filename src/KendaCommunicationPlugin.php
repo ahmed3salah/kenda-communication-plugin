@@ -11,22 +11,19 @@ use Spatie\Crypto\Rsa\PublicKey;
 class KendaCommunicationPlugin
 {
     private string $kendaSAASHost = 'https://whatsapp-saas.test';
+
     private string $sendWhatsappMessageEndpoint = 'api/v1/whatsapp/send';
 
     // send whatsapp message
 
     /**
-     * @param  string  $targetPhone
-     * @param  string  $message
-     * @param  string|null  $fromPhone
-     * @return JsonResponse
      * @throws GuzzleException
      */
     public function sendWhatsappMessage(string $targetPhone, string $message, ?string $fromPhone = null): JsonResponse
     {
         $publicKeyPath = config('kenda-communication-plugin.public_key_path');
 
-        if (!file_exists(storage_path($publicKeyPath))) {
+        if (! file_exists(storage_path($publicKeyPath))) {
             return response()->json([
                 'message' => 'Public key not found',
             ], 500);
@@ -46,7 +43,7 @@ class KendaCommunicationPlugin
         $encryptedFromPhone = $publicKey->encrypt($fr);
 
         // send the message
-        $client = new Client();
+        $client = new Client;
         $apiKey = config('kenda-communication-plugin.api_key');
         $jsonData = [
             'host' => config('app.url'),

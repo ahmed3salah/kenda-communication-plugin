@@ -9,8 +9,11 @@ use Kenda\KendaCommunicationPlugin\Responses\WhatsappMessageResponse;
 abstract class KendaFunction
 {
     protected array $parameters;
+
     protected RequestChannelsEnum $requestChannel;
+
     protected ?string $requestFromWho;
+
     protected mixed $user;
 
     public function __construct($parameters, RequestChannelsEnum $requestChannel, $user = null, $requestFromWho = null)
@@ -21,7 +24,7 @@ abstract class KendaFunction
         $this->requestChannel = $requestChannel;
     }
 
-//    abstract public function execute(): Response;
+    //    abstract public function execute(): Response;
     public function execute(): Response
     {
         $whatsappResponse = new WhatsappMessageResponse('Hello World', '1234567890');

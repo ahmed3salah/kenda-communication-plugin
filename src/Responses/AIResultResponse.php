@@ -8,6 +8,7 @@ use Spatie\Crypto\Rsa\PublicKey;
 class AIResultResponse extends Response
 {
     private string $response;
+
     private int $statusCode;
 
     public function __construct(string $response, $statusCode = 200)
@@ -30,7 +31,7 @@ class AIResultResponse extends Response
     {
         $publicKeyPath = config('kenda-communication-plugin.public_key_path');
 
-        if (!file_exists(storage_path($publicKeyPath))) {
+        if (! file_exists(storage_path($publicKeyPath))) {
             return response()->json([
                 'message' => 'Public key not found',
             ], 500);

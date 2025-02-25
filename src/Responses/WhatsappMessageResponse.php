@@ -11,22 +11,22 @@ class WhatsappMessageResponse extends Response
     // message
     private string $message {
         get {
-            return $this->message;
-        }
+        return $this->message;
+    }
     }
 
     // to phone
     private string $to {
         get {
-            return $this->to;
-        }
+        return $this->to;
+    }
     }
 
     // from phone
     private ?string $from {
         get {
-            return $this->from;
-        }
+        return $this->from;
+    }
     }
 
     public function __construct(string $message, string $to, ?string $from = null)
@@ -53,5 +53,4 @@ class WhatsappMessageResponse extends Response
         }
 
     }
-
 }
